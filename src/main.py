@@ -122,8 +122,9 @@ async def get_discord_token(branch: str):
 @app.get("/discordConfig/{guildId}/bumpConfig")
 async def get_bump_config(guildId: str):
     query = db.collection("discordGuilds").where(
-        filter=FieldFilter("guildId", "==", guildId)
+        filter=FieldFilter("guildID", "==", guildId)
     )
-    print(guildId)
-    print(query.get())
-    return query.get()
+    docs = query.get()
+    for doc in docs:
+        data = doc.to_dict()
+    return data
